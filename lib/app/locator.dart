@@ -1,3 +1,4 @@
+import 'package:frappe_app/services/location_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,6 +19,9 @@ void setupLocator() {
   // );
   locator.registerLazySingleton<Api>(
     () => DioApi(),
+  );
+  locator.registerLazySingleton<LocationService>(
+    () => LocationService(),
   );
   $initGetIt(locator);
 }

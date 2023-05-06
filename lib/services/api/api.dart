@@ -6,10 +6,11 @@ import 'package:frappe_app/model/group_by_count_response.dart';
 import 'package:frappe_app/model/login_request.dart';
 import 'package:frappe_app/model/system_settings_response.dart';
 import 'package:frappe_app/model/upload_file_response.dart';
+import 'package:frappe_app/utils/enums.dart';
 
-import '../../model/doctype_response.dart';
-import '../../model/desktop_page_response.dart';
 import '../../model/desk_sidebar_items_response.dart';
+import '../../model/desktop_page_response.dart';
+import '../../model/doctype_response.dart';
 import '../../model/login_response.dart';
 
 abstract class Api {
@@ -28,13 +29,13 @@ abstract class Api {
   );
 
   Future<List> fetchList({
-    @required List fieldnames,
-    @required String doctype,
-    @required DoctypeDoc meta,
-    @required String orderBy,
-    List filters,
-    int pageLength,
-    int offset,
+    required List fieldnames,
+    required String doctype,
+    required String orderBy,
+    DoctypeDoc? meta,
+    List? filters,
+    int? pageLength,
+    int? offset,
   });
 
   Future<GetDocResponse> getdoc(String doctype, String name);
@@ -79,18 +80,24 @@ abstract class Api {
   Future deleteComment(String name);
 
   Future<List<UploadedFile>> uploadFiles({
-    @required String doctype,
-    @required String name,
-    @required List<FrappeFile> files,
+    required String doctype,
+    required String name,
+    required List<FrappeFile> files,
   });
 
-  Future saveDocs(String doctype, Map formValue);
+  Future saveDocs(
+    String doctype,
+    Map formValue, {
+    SaveDocAction action = SaveDocAction.save,
+  });
+
+  Future cancelDoc(String doctype, String name);
 
   Future<Map> searchLink({
-    String doctype,
-    String refDoctype,
-    String txt,
-    int pageLength,
+    required String doctype,
+    required String txt,
+    String? refDoctype,
+    int? pageLength,
   });
 
   Future toggleLike(String doctype, String name, bool isFav);
@@ -104,17 +111,17 @@ abstract class Api {
   Future addReview(String doctype, String name, Map reviewData);
 
   Future setPermission({
-    @required String doctype,
-    @required String name,
-    @required Map shareInfo,
-    @required String user,
+    required String doctype,
+    required String name,
+    required Map shareInfo,
+    required String user,
   });
 
   Future shareAdd(String doctype, String name, Map shareInfo);
 
   Future shareGetUsers({
-    @required String doctype,
-    @required String name,
+    required String doctype,
+    required String name,
   });
 
   Future<Map> getContactList(String query);
@@ -141,4 +148,6 @@ abstract class Api {
     required String orderBy,
     required String doctype,
   });
+
+  Future<int> getStatsFilterCount(String doctype, String filters);
 }

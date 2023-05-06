@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frappe_app/app/locator.dart';
@@ -23,11 +21,10 @@ class ShareBottomSheetView extends StatelessWidget {
   final List<Shared> shares;
 
   const ShareBottomSheetView({
-    Key key,
-    @required this.doctype,
-    @required this.name,
-    @required this.shares,
-  }) : super(key: key);
+    required this.doctype,
+    required this.name,
+    required this.shares,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class ShareBottomSheetView extends StatelessWidget {
                     color: Colors.white,
                     border: Border(
                       top: BorderSide(
-                        color: FrappePalette.grey[200],
+                        color: FrappePalette.grey[200]!,
                       ),
                     ),
                   ),
@@ -179,8 +176,8 @@ class ShareBottomSheetView extends StatelessWidget {
   }
 
   List<Widget> _generateChildren({
-    @required ShareBottomSheetViewModel model,
-    BuildContext context,
+    required ShareBottomSheetViewModel model,
+    BuildContext? context,
   }) {
     var allUsers = OfflineStorage.getItem('allUsers');
     allUsers = allUsers["data"];
@@ -202,37 +199,36 @@ class ShareBottomSheetView extends StatelessWidget {
 }
 
 class SharedWithUser extends StatelessWidget {
-  final Map user;
+  final Map? user;
   final Shared share;
   final ShareBottomSheetViewModel model;
   final String doctype;
   final String name;
 
   const SharedWithUser({
-    Key key,
+    required this.share,
+    required this.model,
+    required this.doctype,
+    required this.name,
     this.user,
-    this.share,
-    this.model,
-    this.doctype,
-    this.name,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     String title;
-    String subtitle;
-    String userPermission;
+    late String userPermission;
+    String? subtitle;
 
     if (user != null) {
-      title = user["full_name"];
+      title = user!["full_name"];
     } else if (share.user == null && share.everyone == 1) {
       title = "Everyone";
     } else {
-      title = share.user;
+      title = share.user!;
     }
 
     if (user != null) {
-      subtitle = share.user;
+      subtitle = share.user!;
     }
 
     if (share.read == 1 && share.write == 1 && share.share == 1) {
@@ -265,7 +261,7 @@ class SharedWithUser extends StatelessWidget {
             newPermission: permission,
             doctype: doctype,
             name: name,
-            user: share.user,
+            user: share.user!,
           );
         },
         child: Container(

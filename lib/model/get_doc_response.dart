@@ -393,7 +393,7 @@ class Comment {
 }
 
 class Version {
-  late String name;
+  late dynamic name;
   late String owner;
   late String creation;
   late String data;

@@ -33,7 +33,7 @@ class Select extends StatelessWidget with Control, ControlInput {
 
     if (f != null) {
       validators.add(
-        f(context),
+        f(),
       );
     }
 
@@ -60,7 +60,7 @@ class Select extends StatelessWidget with Control, ControlInput {
         FrappeIcons.select,
       ),
       initialValue: doc != null
-          ? doc![doctypeField.fieldname]
+          ? doc![doctypeField.fieldname] != "" ? doc![doctypeField.fieldname] : null
           : doctypeField.defaultValue,
       name: doctypeField.fieldname,
       hint: Text(doctypeField.label!),

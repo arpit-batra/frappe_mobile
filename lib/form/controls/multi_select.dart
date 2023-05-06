@@ -20,7 +20,7 @@ class MultiSelect extends StatefulWidget {
 
   final Map? doc;
   final FutureOr<List<dynamic>> Function(String)? findSuggestions;
-  final dynamic Function(List<dynamic>)? valueTransformer;
+  final dynamic Function(List<dynamic>?)? valueTransformer;
   final Function(List<dynamic>)? onChanged;
   final Key? key;
   final Widget? prefixIcon;
@@ -51,7 +51,7 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
     var f = setMandatory(widget.doctypeField);
 
     if (f != null) {
-      validators.add(f(context));
+      validators.add(f());
     }
 
     var initialValue;
@@ -75,7 +75,6 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
     }
 
     return FormBuilderChipsInput(
-      key: widget.key,
       onChanged: (val) {
         if (widget.onControlChanged != null) {
           FieldValue(
@@ -88,7 +87,7 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
       valueTransformer: widget.valueTransformer ??
           (value) {
             return value
-                .map((v) {
+                ?.map((v) {
                   if (v is Map) {
                     return v["value"];
                   } else {

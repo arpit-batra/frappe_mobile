@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frappe_app/config/frappe_icons.dart';
@@ -20,12 +18,11 @@ class TagsBottomSheetView extends StatefulWidget {
   final Function refreshCallback;
 
   const TagsBottomSheetView({
-    Key key,
-    @required this.doctype,
-    @required this.name,
-    @required this.tags,
-    @required this.refreshCallback,
-  }) : super(key: key);
+    required this.doctype,
+    required this.name,
+    required this.tags,
+    required this.refreshCallback,
+  });
 
   @override
   _TagsBottomSheetViewState createState() => _TagsBottomSheetViewState();
@@ -149,8 +146,8 @@ class _TagsBottomSheetViewState extends State<TagsBottomSheetView> {
   }
 
   List<Widget> _generateChildren({
-    @required TagsBottomSheetViewModel model,
-    BuildContext context,
+    required TagsBottomSheetViewModel model,
+    required BuildContext context,
   }) {
     return model.currentTags.asMap().entries.map<Widget>(
       (entry) {

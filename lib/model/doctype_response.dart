@@ -41,7 +41,7 @@ class DoctypeDoc {
   late String? nameCase;
   late String? titleField;
   late String? subjectField;
-  late String? senderField;
+  late dynamic senderField;
   late String? imageField;
   late String? sortField;
   late String? sortOrder;

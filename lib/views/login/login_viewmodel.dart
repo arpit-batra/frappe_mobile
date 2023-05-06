@@ -74,17 +74,17 @@ class LoginViewModel extends BaseViewModel {
         loginButtonLabel = "Verify";
         return response;
       } else {
-        updateUserDetails(response);
 
         OfflineStorage.putItem(
           'usr',
           loginRequest.usr,
         );
 
-        await cacheAllUsers();
         await initAwesomeItems();
         await DioHelper.initCookies();
+        cacheAllUsers();
         getSystemSettings();
+        updateUserDetails(response);
 
         loginButtonLabel = "Success";
         notifyListeners();

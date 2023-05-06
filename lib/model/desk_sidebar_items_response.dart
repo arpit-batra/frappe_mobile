@@ -23,7 +23,7 @@ class DeskMessage {
   late String name;
   late String? category;
   late String? icon;
-  late String module;
+  late dynamic module;
   late String label;
   late String? content;
 
@@ -32,7 +32,7 @@ class DeskMessage {
     this.category,
     this.icon,
     this.content,
-    required this.module,
+    this.module,
     required this.label,
   });
 

@@ -8,7 +8,7 @@ import 'package:frappe_app/model/common.dart';
 import 'package:frappe_app/utils/frappe_icon.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:frappe_app/widgets/form_builder_typeahead.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../model/doctype_response.dart';
 import '../../app/locator.dart';
@@ -63,7 +63,7 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
 
     if (f != null) {
       validators.add(
-        f(context),
+        f(),
       );
     }
 
@@ -84,7 +84,6 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key,
         enabled: enabled,
         onChanged: (val) {
           // if (widget.onControlChanged != null) {
@@ -115,7 +114,7 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
                   widget.doc[widget.doctypeField.fieldname] != ""
               ? IconButton(
                   onPressed: () {
-                    pushNewScreen(
+                    PersistentNavBarNavigator.pushNewScreen(
                       context,
                       screen: FormView(
                           doctype: widget.doc[widget.doctypeField.options],
@@ -163,29 +162,29 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
               // var isOnline = await verifyOnline();
               var isOnline = true;
               if (!isOnline) {
-                var linkFull = await OfflineStorage.getItem(
-                    '${widget.doctypeField.options}LinkFull');
-                linkFull = linkFull["data"];
+                // var linkFull = await OfflineStorage.getItem(
+                //     '${widget.doctypeField.options}LinkFull');
+                // linkFull = linkFull["data"];
 
-                if (linkFull != null) {
-                  return linkFull["results"].where(
-                    (link) {
-                      return (link["value"] as String)
-                          .toLowerCase()
-                          .contains(lowercaseQuery);
-                    },
-                  ).toList();
-                } else {
-                  var queryLink = await OfflineStorage.getItem(
-                      '$lowercaseQuery${widget.doctypeField.options}Link');
-                  queryLink = queryLink["data"];
+                // if (linkFull != null) {
+                //   return linkFull["results"].where(
+                //     (link) {
+                //       return (link["value"] as String)
+                //           .toLowerCase()
+                //           .contains(lowercaseQuery);
+                //     },
+                //   ).toList();
+                // } else {
+                //   var queryLink = await OfflineStorage.getItem(
+                //       '$lowercaseQuery${widget.doctypeField.options}Link');
+                //   queryLink = queryLink["data"];
 
-                  if (queryLink != null) {
-                    return queryLink["results"];
-                  } else {
-                    return [];
-                  }
-                }
+                //   if (queryLink != null) {
+                //     return queryLink["results"];
+                //   } else {
+                //     return [];
+                //   }
+                // }
               } else {
                 var response = await locator<Api>().searchLink(
                   doctype: widget.doc[widget.doctypeField.options],

@@ -67,14 +67,13 @@ class _AutoCompleteState extends State<AutoComplete>
 
     if (f != null) {
       validators.add(
-        f(context),
+        f(),
       );
     }
 
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key,
         controller: _typeAheadController,
         onSuggestionSelected: widget.onSuggestionSelected,
         onChanged: (val) {

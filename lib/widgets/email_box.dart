@@ -261,43 +261,45 @@ class _EmailBoxState extends State<EmailBox> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Html(
                         data: message,
-                        customRender: {
-                          "img": (renderContext, child) {
-                            var src = renderContext.tree.attributes['src'];
-                            if (src != null) {
-                              if (!src.startsWith("http")) {
-                                src = Config().baseUrl! + src;
-                              }
-                              return GestureDetector(
-                                onTap: () => Navigator.of(
-                                  context,
-                                  rootNavigator: true,
-                                ).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => Scaffold(
-                                      appBar: AppBar(
-                                        elevation: 0.8,
-                                      ),
-                                      body: PhotoView(
-                                        imageProvider: NetworkImage(
-                                          src!,
+                        customRenders: {
+                          tagMatcher("img"): CustomRender.widget(
+                            widget: (renderContext, child) {
+                              var src = renderContext.tree.attributes['src'];
+                              if (src != null) {
+                                if (!src.startsWith("http")) {
+                                  src = Config().baseUrl! + src;
+                                }
+                                return GestureDetector(
+                                  onTap: () => Navigator.of(
+                                    context,
+                                    rootNavigator: true,
+                                  ).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => Scaffold(
+                                        appBar: AppBar(
+                                          elevation: 0.8,
+                                        ),
+                                        body: PhotoView(
+                                          imageProvider: NetworkImage(
+                                            src!,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                child: Image.network(
-                                  src,
-                                  headers: {
-                                    HttpHeaders.cookieHeader:
-                                        DioHelper.cookies!,
-                                  },
-                                ),
-                              );
-                            }
-                          },
-                        },
-                        customImageRenders: {
+                                  child: Image.network(
+                                    src,
+                                    headers: {
+                                      HttpHeaders.cookieHeader:
+                                          DioHelper.cookies!,
+                                    },
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
                           networkSourceMatcher(domains: [
                             Config().baseUrl!,
                           ]): networkImageRender(
@@ -308,10 +310,10 @@ class _EmailBoxState extends State<EmailBox> {
                             loadingWidget: () => Text("Loading..."),
                           ),
                           // for relative paths, prefix with a base url
-                          (attr, _) =>
-                                  attr["src"] != null &&
-                                  !attr["src"]!.startsWith("http"):
-                              networkImageRender(
+                          (attr) =>
+                              attr.tree.attributes["src"] != null &&
+                              !attr.tree.attributes["src"]!
+                                  .startsWith("http"): networkImageRender(
                             headers: {
                               HttpHeaders.cookieHeader: DioHelper.cookies!,
                             },

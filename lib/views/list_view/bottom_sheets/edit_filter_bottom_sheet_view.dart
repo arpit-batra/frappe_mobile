@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frappe_app/config/frappe_icons.dart';
@@ -11,20 +10,18 @@ import 'package:frappe_app/utils/constants.dart';
 import 'package:frappe_app/utils/frappe_icon.dart';
 import 'package:frappe_app/views/base_view.dart';
 import 'package:frappe_app/views/list_view/bottom_sheets/edit_filter_bottom_sheet_viewmodel.dart';
-
 import 'package:frappe_app/widgets/frappe_bottom_sheet.dart';
 
 class EditFilterBottomSheetView extends StatelessWidget {
   final int page;
-  final List<DoctypeField> fields;
   final Filter filter;
+  final List<DoctypeField> fields;
 
   const EditFilterBottomSheetView({
-    @required this.page,
-    this.fields,
-    this.filter,
-    Key key,
-  }) : super(key: key);
+    required this.page,
+    required this.filter,
+    required this.fields,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,7 @@ class EditFilterBottomSheetView extends StatelessWidget {
         model.filter = filter;
       },
       builder: (context, model, child) {
-        Widget widget;
+        late Widget widget;
         if (model.pageNumber == 1) {
           widget = SelectFilterField(
             fields: fields,
@@ -74,16 +71,16 @@ class EditFilterBottomSheetView extends StatelessWidget {
 }
 
 class SelectFilterField extends StatelessWidget {
-  final Function onActionButtonPress;
-  final Function leadingOnPressed;
   final List<DoctypeField> fields;
   final EditFilterBottomSheetViewModel model;
+  final Function? onActionButtonPress;
+  final Function? leadingOnPressed;
 
   SelectFilterField({
+    required this.fields,
+    required this.model,
     this.onActionButtonPress,
     this.leadingOnPressed,
-    @required this.fields,
-    @required this.model,
   });
 
   @override
@@ -115,7 +112,7 @@ class SelectFilterField extends StatelessWidget {
             },
             visualDensity: VisualDensity(vertical: -4),
             title: Text(
-              field.label,
+              field.label??"",
               style: TextStyle(
                 color: FrappePalette.grey[700],
               ),
@@ -132,14 +129,14 @@ class SelectFilterField extends StatelessWidget {
 }
 
 class SelectFilterOperator extends StatelessWidget {
-  final Function onActionButtonPress;
-  final Function leadingOnPressed;
+  final Function? onActionButtonPress;
+  final void Function()? leadingOnPressed;
   final EditFilterBottomSheetViewModel model;
 
   SelectFilterOperator({
     this.onActionButtonPress,
     this.leadingOnPressed,
-    this.model,
+    required this.model,
   });
 
   @override
@@ -209,14 +206,14 @@ class SelectFilterOperator extends StatelessWidget {
 }
 
 class EditValue extends StatefulWidget {
-  final Function onActionButtonPress;
-  final Function leadingOnPressed;
+  final Function? onActionButtonPress;
+  final void Function()? leadingOnPressed;
   final EditFilterBottomSheetViewModel model;
 
   EditValue({
     this.onActionButtonPress,
     this.leadingOnPressed,
-    this.model,
+    required this.model,
   });
 
   @override
@@ -238,12 +235,12 @@ class _EditValueState extends State<EditValue> {
           color: FrappePalette.blue[500],
         ),
       ),
-      onActionButtonPress: () {
-        _fbKey.currentState.save();
-        var v = _fbKey.currentState.value[widget.model.filter.field.fieldname];
+      onActionButtonPress: widget.onActionButtonPress != null ? () {
+        _fbKey.currentState!.save();
+        var v = _fbKey.currentState!.value[widget.model.filter.field.fieldname];
         widget.model.updateValue(v);
-        widget.onActionButtonPress(widget.model.filter);
-      },
+        widget.onActionButtonPress!(widget.model.filter);
+      } : null,
       body: Column(
         children: [
           FormBuilder(

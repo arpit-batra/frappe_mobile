@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frappe_app/config/frappe_palette.dart';
+import 'package:frappe_app/widgets/generics/flat_button_wrapper.dart';
 
 AppBar buildAppBar({
   required String title,
@@ -11,7 +12,7 @@ AppBar buildAppBar({
   double titleSpacing;
 
   if (context != null ? !Navigator.of(context).canPop() : false || expanded) {
-    titleSpacing = NavigationToolbar.kMiddleSpacing;
+    titleSpacing = 0;
   } else {
     titleSpacing = 0.0;
   }
@@ -20,7 +21,7 @@ AppBar buildAppBar({
     automaticallyImplyLeading: !expanded,
     titleSpacing: titleSpacing,
     centerTitle: false,
-    title: FlatButton(
+    title: FlatButtonWrapper(
       visualDensity: VisualDensity(
         horizontal: -4,
       ),

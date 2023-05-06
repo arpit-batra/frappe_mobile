@@ -1,8 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../model/config.dart';
@@ -17,11 +18,11 @@ class DioHelper {
       BaseOptions(
         baseUrl: "$baseUrl/api",
       ),
-    )..interceptors.add(
+    )..interceptors.addAll([
         CookieManager(cookieJar),
-      );
-    dio?.options.connectTimeout = 60 * 1000;
-    dio?.options.receiveTimeout = 60 * 1000;
+      ]);
+    // dio?.options.connectTimeout = 60 * 1000;
+    // dio?.options.receiveTimeout = 60 * 1000;
   }
 
   static Future initCookies() async {
@@ -41,6 +42,7 @@ class DioHelper {
       var cookies = await cookieJar.loadForRequest(Config().uri!);
 
       var cookie = CookieManager.getCookies(cookies);
+      log("cookies: $cookie");
 
       return cookie;
     } else {

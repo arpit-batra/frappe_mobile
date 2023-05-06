@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:frappe_app/model/offline_storage.dart';
-import 'package:frappe_app/model/system_settings_response.dart';
 import 'package:frappe_app/utils/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -35,21 +32,23 @@ class Date extends StatelessWidget with Control, ControlInput {
 
     if (f != null) {
       validators.add(
-        f(context),
+        f(),
       );
     }
 
-    var systemSettings = jsonDecode(
-      jsonEncode(
-        OfflineStorage.getItem("systemSettings")["data"],
-      ),
-    );
+    // var systemSettings = jsonDecode(
+    //   jsonEncode(
+    //     OfflineStorage.getItem("systemSettings")["data"],
+    //   ),
+    // );
 
-    var dateFormat = systemSettings != null
-        ? SystemSettingsResponse.fromJson(
-            systemSettings,
-          ).message.defaults.dateFormat
-        : "dd-mm-yyyy";
+    // var dateFormat = systemSettings != null
+    //     ? SystemSettingsResponse.fromJson(
+    //         systemSettings,
+    //       ).message.defaults.dateFormat
+    //     : "dd-mm-yyyy";
+
+    var dateFormat = "dd-mm-yyyy";
 
     return FormBuilderDateTimePicker(
       key: key,

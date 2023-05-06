@@ -9,7 +9,7 @@ import 'package:frappe_app/utils/loading_indicator.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:frappe_app/views/list_view/list_view.dart';
 import 'package:injectable/injectable.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../app/locator.dart';
 import '../../services/api/api.dart';
@@ -30,6 +30,7 @@ class DeskViewModel extends BaseViewModel {
   Map<String, List<DeskMessage>> modulesByCategory = {};
   late DesktopPageResponse desktopPage;
   ErrorResponse? error;
+  Map counts = {};
 
   switchModule(
     DeskMessage newModule,
@@ -46,7 +47,14 @@ class DeskViewModel extends BaseViewModel {
       currentModule = newModule.name;
       currentModuleTitle = newModule.name;
     }
+    
     await getDesktopPage();
+    await Future.forEach(desktopPage.message.shortcuts.items, ((item) async {
+        if(item.statsFilter != null) {
+          String result = item.statsFilter!.replaceAll("'%' + frappe.session.user + '%'", '"%'+Config().userId!+'%"');
+          counts[item.label] = await locator<Api>().getStatsFilterCount(item.linkTo, result);
+        }
+       }));
     setState(ViewState.idle);
   }
 
@@ -160,6 +168,12 @@ class DeskViewModel extends BaseViewModel {
       }
 
       await getDesktopPage();
+      await Future.forEach(desktopPage.message.shortcuts.items, ((item) async {
+        if(item.statsFilter != null && item.statsFilter != "") {
+          String result = item.statsFilter!.replaceAll("'%' + frappe.session.user + '%'", '"%'+Config().userId!+'%"');
+          counts[item.label] = await locator<Api>().getStatsFilterCount(item.linkTo, result);
+        }
+       }));
       error = null;
     } catch (e) {
       error = e as ErrorResponse;
@@ -179,7 +193,7 @@ class DeskViewModel extends BaseViewModel {
       LoadingIndicator.stopLoading();
 
       if (meta.docs[0].issingle == 1) {
-        pushNewScreen(
+        PersistentNavBarNavigator.pushNewScreen(
           context,
           screen: FormView(
             meta: meta.docs[0],
@@ -188,7 +202,7 @@ class DeskViewModel extends BaseViewModel {
           withNavBar: true,
         );
       } else {
-        pushNewScreen(
+        PersistentNavBarNavigator.pushNewScreen(
           context,
           screen: CustomListView(
             meta: meta,

@@ -49,7 +49,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i5.AssigneesBottomSheetViewModel>(
       () => _i5.AssigneesBottomSheetViewModel());
   gh.lazySingleton<_i6.AwesomBarViewModel>(() => _i6.AwesomBarViewModel());
-  gh.lazySingleton<_i7.ConnectivityService>(() => _i7.ConnectivityService());
+  // gh.lazySingleton<_i7.ConnectivityService>(() => _i7.ConnectivityService());
   gh.lazySingleton<_i8.DeskViewModel>(() => _i8.DeskViewModel());
   gh.lazySingleton<_i9.EditFilterBottomSheetViewModel>(
       () => _i9.EditFilterBottomSheetViewModel());

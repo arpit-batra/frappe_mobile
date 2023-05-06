@@ -18,7 +18,7 @@ class DesktopPageMessage {
   late DesktopPageCharts charts;
   late DesktopPageShortcuts shortcuts;
   late DesktopPageCards cards;
-  late bool allowCustomization;
+  bool? allowCustomization;
 
   DesktopPageMessage({
     required this.charts,
@@ -47,7 +47,7 @@ class DesktopPageMessage {
 }
 
 class DesktopPageCharts {
-  late String? label;
+  String? label;
   late List<ChartItem>? items;
 
   DesktopPageCharts({this.label, this.items});
@@ -73,7 +73,7 @@ class DesktopPageCharts {
 }
 
 class DesktopPageShortcuts {
-  late String label;
+  String? label;
   late List<ShortcutItem> items;
 
   DesktopPageShortcuts({
@@ -100,7 +100,7 @@ class DesktopPageShortcuts {
 }
 
 class DesktopPageCards {
-  late String label;
+  String? label;
   late List<CardItem> items;
 
   DesktopPageCards({
@@ -127,19 +127,19 @@ class DesktopPageCards {
 }
 
 class ChartItem {
-  late String? name;
-  late String? owner;
-  late String? creation;
-  late String? modified;
-  late String? modifiedBy;
-  late String? parent;
-  late String? parentfield;
-  late String? parenttype;
-  late int? idx;
-  late int? docstatus;
-  late String? chartName;
-  late String? label;
-  late String? doctype;
+  String? name;
+  String? owner;
+  String? creation;
+  String? modified;
+  String? modifiedBy;
+  String? parent;
+  String? parentfield;
+  String? parenttype;
+  int? idx;
+  int? docstatus;
+  String? chartName;
+  String? label;
+  String? doctype;
 
   ChartItem(
       {this.name,
@@ -192,27 +192,27 @@ class ChartItem {
 }
 
 class ShortcutItem {
-  late String? name;
-  late String? owner;
-  late String? creation;
-  late String? modified;
-  late String? modifiedBy;
-  late String? parent;
-  late String? parentfield;
-  late String? parenttype;
-  late int? idx;
-  late int? docstatus;
-  late String? type;
+  String? name;
+  String? owner;
+  String? creation;
+  String? modified;
+  String? modifiedBy;
+  String? parent;
+  String? parentfield;
+  String? parenttype;
+  int? idx;
+  int? docstatus;
+  String? type;
   late String linkTo;
-  late String? docView;
+  String? docView;
   late String label;
-  late dynamic? icon;
-  late dynamic? restrictToDomain;
-  late String? statsFilter;
-  late String? color;
-  late String? format;
-  late String? doctype;
-  late int? isQueryReport;
+  late dynamic icon;
+  late dynamic restrictToDomain;
+  String? statsFilter;
+  String? color;
+  String? format;
+  String? doctype;
+  int? isQueryReport;
 
   ShortcutItem(
       {this.name,
@@ -289,20 +289,20 @@ class ShortcutItem {
 }
 
 class CardItem {
-  late String? name;
-  late String? owner;
-  late String? creation;
-  late String? modified;
-  late String? modifiedBy;
-  late String? parent;
-  late String? parentfield;
-  late String? parenttype;
-  late int? idx;
-  late int? docstatus;
+  String? name;
+  String? owner;
+  String? creation;
+  String? modified;
+  String? modifiedBy;
+  String? parent;
+  String? parentfield;
+  String? parenttype;
+  int? idx;
+  int? docstatus;
   late String label;
   late dynamic hidden;
   late List<CardItemLink> links;
-  late String? doctype;
+  String? doctype;
 
   CardItem(
       {this.name,
@@ -363,18 +363,18 @@ class CardItem {
 }
 
 class CardItemLink {
-  late String? description;
+  String? description;
   late String label;
-  late String name;
-  late int? onboard;
-  late String? type;
-  late dynamic? count;
-  late dynamic? dependencies;
-  late String? doctype;
-  late dynamic? isQueryReport;
-  late dynamic? incompleteDependencies;
-  late String? icon;
-  late String? linkTo;
+  String? name;
+  int? onboard;
+  String? type;
+  dynamic count;
+  dynamic dependencies;
+  String? doctype;
+  dynamic isQueryReport;
+  dynamic incompleteDependencies;
+  String? icon;
+  String? linkTo;
 
   CardItemLink(
       {this.description,

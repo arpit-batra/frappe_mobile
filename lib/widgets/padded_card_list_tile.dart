@@ -5,10 +5,12 @@ import 'card_list_tile.dart';
 class PaddedCardListTile extends StatelessWidget {
   final String title;
   final void Function() onTap;
+  final Widget? trailing;
 
   const PaddedCardListTile({
     required this.title,
     required this.onTap,
+    this.trailing
   });
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class PaddedCardListTile extends StatelessWidget {
         top: 8.0,
       ),
       child: CardListTile(
+        trailing: trailing,
         title: Text(title),
         onTap: onTap,
       ),

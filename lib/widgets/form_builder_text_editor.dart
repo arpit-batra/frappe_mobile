@@ -1,16 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/image_render.dart';
 import 'package:frappe_app/config/palette.dart';
 import 'package:frappe_app/model/config.dart';
 import 'package:frappe_app/utils/dio_helper.dart';
 import 'package:frappe_app/views/login/login_view.dart';
 import 'package:html/parser.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:frappe_app/utils/enums.dart' as enums;
 import 'frappe_button.dart';
 
@@ -39,7 +36,7 @@ class FormBuilderTextEditor<T> extends FormBuilderField<T> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return EditText(
-                                  data: field.value as String,
+                                  data: field.value != null ? field.value.toString() : null,
                                 );
                               },
                             ),
@@ -64,9 +61,10 @@ class FormBuilderTextEditor<T> extends FormBuilderField<T> {
                     child: field.value != null
                         ? Html(
                             data: field.value as String,
-                            customRender: {
-                              "img": (renderContext, child) {
-                                var src = renderContext.tree.attributes['src'];
+                            customRenders: {
+                              tagMatcher("img"): CustomRender.widget(
+                                  widget: (context, buildChildren) {
+                                var src = context.tree.attributes['src'];
                                 if (src != null) {
                                   if (!src.startsWith("http")) {
                                     src = Config().baseUrl! + src;
@@ -78,10 +76,10 @@ class FormBuilderTextEditor<T> extends FormBuilderField<T> {
                                           DioHelper.cookies!,
                                     },
                                   );
+                                } else {
+                                  return Container();
                                 }
-                              },
-                            },
-                            customImageRenders: {
+                              }),
                               networkSourceMatcher(domains: [
                                 Config().baseUrl!,
                               ]): networkImageRender(
@@ -92,10 +90,10 @@ class FormBuilderTextEditor<T> extends FormBuilderField<T> {
                                 loadingWidget: () => Text("Loading..."),
                               ),
                               // for relative paths, prefix with a base url
-                              (attr, _) =>
-                                      attr["src"] != null &&
-                                      !(attr["src"]!.startsWith("http") ||
-                                          attr["src"]!.startsWith("https")):
+                              (attr) =>
+                                      attr.tree.attributes["src"] != null &&
+                                      !(attr.tree.attributes["src"]!.startsWith("http") ||
+                                          attr.tree.attributes["src"]!.startsWith("https")):
                                   networkImageRender(
                                 headers: {
                                   HttpHeaders.cookieHeader: DioHelper.cookies!,
@@ -106,6 +104,7 @@ class FormBuilderTextEditor<T> extends FormBuilderField<T> {
                               networkSourceMatcher(): networkImageRender(
                                   altWidget: (_) => FrappeLogo()),
                             },
+                            
                             onLinkTap: (url, _, __, ___) {
                               print("Opening $url...");
                             },
@@ -144,7 +143,7 @@ class EditText extends StatefulWidget {
 }
 
 class _EditTextState extends State<EditText> {
-  final HtmlEditorController controller = HtmlEditorController();
+  // final HtmlEditorController controller = HtmlEditorController();
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +170,8 @@ class _EditTextState extends State<EditText> {
             ),
             child: FrappeFlatButton(
               onPressed: () async {
-                var txt = await controller.getText();
-                Navigator.of(context).pop(txt);
+                // var txt = await controller.getText();
+                // Navigator.of(context).pop(txt);
               },
               buttonType: enums.ButtonType.primary,
               title: "Update",
@@ -184,46 +183,46 @@ class _EditTextState extends State<EditText> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            HtmlEditor(
-              controller: controller,
-              htmlEditorOptions: HtmlEditorOptions(
-                shouldEnsureVisible: true,
-                hint: '',
-                initialText: html,
-              ),
-              htmlToolbarOptions: HtmlToolbarOptions(
-                toolbarType: ToolbarType.nativeGrid,
-                defaultToolbarButtons: [
-                  StyleButtons(),
-                  FontButtons(
-                    strikethrough: false,
-                    subscript: false,
-                    superscript: false,
-                  ),
-                  ColorButtons(),
-                  ListButtons(
-                    listStyles: false,
-                  ),
-                  ParagraphButtons(
-                    alignCenter: false,
-                    alignJustify: false,
-                    alignLeft: false,
-                    alignRight: false,
-                    textDirection: false,
-                    caseConverter: false,
-                    lineHeight: false,
-                  ),
-                  InsertButtons(
-                    audio: false,
-                    video: false,
-                    hr: false,
-                  ),
-                ],
-              ),
-              otherOptions: OtherOptions(
-                height: MediaQuery.of(context).size.height,
-              ),
-            ),
+            // HtmlEditor(
+            //   controller: controller,
+            //   htmlEditorOptions: HtmlEditorOptions(
+            //     shouldEnsureVisible: true,
+            //     hint: '',
+            //     initialText: html,
+            //   ),
+            //   htmlToolbarOptions: HtmlToolbarOptions(
+            //     toolbarType: ToolbarType.nativeGrid,
+            //     defaultToolbarButtons: [
+            //       StyleButtons(),
+            //       FontButtons(
+            //         strikethrough: false,
+            //         subscript: false,
+            //         superscript: false,
+            //       ),
+            //       ColorButtons(),
+            //       ListButtons(
+            //         listStyles: false,
+            //       ),
+            //       ParagraphButtons(
+            //         alignCenter: false,
+            //         alignJustify: false,
+            //         alignLeft: false,
+            //         alignRight: false,
+            //         textDirection: false,
+            //         caseConverter: false,
+            //         lineHeight: false,
+            //       ),
+            //       InsertButtons(
+            //         audio: false,
+            //         video: false,
+            //         hr: false,
+            //       ),
+            //     ],
+            //   ),
+            //   otherOptions: OtherOptions(
+            //     height: MediaQuery.of(context).size.height,
+            //   ),
+            // ),
           ],
         ),
       ),
