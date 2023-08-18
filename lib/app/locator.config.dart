@@ -7,7 +7,6 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../services/connectivity_service.dart' as _i7;
 import '../services/storage_service.dart' as _i17;
 import '../views/awesome_bar/awesome_bar_viewmodel.dart' as _i6;
 import '../views/desk/desk_viewmodel.dart' as _i8;

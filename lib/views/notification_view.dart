@@ -42,7 +42,7 @@ class NotifcationView extends StatelessWidget {
           },
         ),
         itemBuilder: ((__, entry, _) {
-          var e = entry as Message;
+          var e = entry;
 
           return Column(
             children: [

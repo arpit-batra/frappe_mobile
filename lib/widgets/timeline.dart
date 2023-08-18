@@ -8,7 +8,6 @@ import 'package:frappe_app/utils/helpers.dart';
 import 'package:frappe_app/views/send_email/send_email_view.dart';
 import 'package:frappe_app/widgets/doc_version.dart';
 import 'package:frappe_app/widgets/email_box.dart';
-import 'package:frappe_app/widgets/generics/flat_button_wrapper.dart';
 
 import 'package:timelines/timelines.dart' as timeline;
 

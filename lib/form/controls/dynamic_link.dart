@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frappe_app/config/frappe_icons.dart';
@@ -14,8 +13,6 @@ import '../../model/doctype_response.dart';
 import '../../app/locator.dart';
 import '../../services/api/api.dart';
 
-import '../../utils/helpers.dart';
-import '../../model/offline_storage.dart';
 
 import 'base_control.dart';
 import 'base_input.dart';
@@ -129,10 +126,8 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
               : null,
         ),
         selectionToTextTransformer: (item) {
-          if (item != null) {
-            if (item is Map) {
-              return item["value"];
-            }
+          if (item is Map) {
+            return item["value"];
           }
           return item.toString();
         },

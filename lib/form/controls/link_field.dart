@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:frappe_app/config/frappe_icons.dart';
@@ -15,7 +14,6 @@ import '../../app/locator.dart';
 import '../../services/api/api.dart';
 
 import '../../utils/helpers.dart';
-import '../../model/offline_storage.dart';
 
 import 'base_control.dart';
 import 'base_input.dart';
@@ -129,10 +127,8 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
               : null,
         ),
         selectionToTextTransformer: (item) {
-          if (item != null) {
-            if (item is Map) {
-              return item["value"];
-            }
+          if (item is Map) {
+            return item["value"];
           }
           return item.toString();
         },
@@ -164,7 +160,7 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
                 // var linkFull = await OfflineStorage.getItem(
                 //     '${widget.doctypeField.options}LinkFull');
                 // linkFull = linkFull["data"];
-                var linkFull = null;
+                var linkFull;
 
                 if (linkFull != null) {
                   return linkFull["results"].where(
@@ -179,7 +175,7 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
                   //     '$lowercaseQuery${widget.doctypeField.options}Link');
                   // queryLink = queryLink["data"];
 
-                  var queryLink = null;
+                  var queryLink;
 
                   if (queryLink != null) {
                     return queryLink["results"];

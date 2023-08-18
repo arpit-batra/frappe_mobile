@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 
@@ -11,7 +10,6 @@ import '../services/api/api.dart';
 import '../services/storage_service.dart';
 import '../utils/constants.dart';
 import '../utils/helpers.dart';
-import 'common.dart';
 import 'config.dart';
 
 class OfflineStorage {

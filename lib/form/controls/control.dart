@@ -20,12 +20,10 @@ import './datetime.dart';
 import './float.dart';
 import './int.dart';
 import './link_field.dart';
-import './multi_select.dart';
 import './select.dart';
 import './small_text.dart';
 import './text_editor.dart';
 import './time.dart';
-import '../../config/palette.dart';
 
 Widget makeControl({
   required DoctypeField field,

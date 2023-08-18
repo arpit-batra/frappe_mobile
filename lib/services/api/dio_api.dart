@@ -31,8 +31,7 @@ class DioApi implements Api {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        if (response.headers.map["set-cookie"] != null &&
-            response.headers.map["set-cookie"]![3] != null) {
+        if (response.headers.map["set-cookie"] != null) {
           response.data["user_id"] =
               response.headers.map["set-cookie"]![3].split(';')[0].split('=')[1];
         }

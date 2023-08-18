@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frappe_app/app/locator.dart';
 import 'package:frappe_app/model/desk_sidebar_items_response.dart';
-import 'package:frappe_app/services/location_service.dart';
-import 'package:frappe_app/utils/frappe_alert.dart';
 import 'package:frappe_app/utils/helpers.dart';
-import 'package:frappe_app/widgets/frappe_button.dart';
 import 'package:frappe_app/widgets/padded_card_list_tile.dart';
-import 'package:frappe_app/widgets/user_avatar.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 import '../../config/frappe_palette.dart';
 import '../../config/palette.dart';
-import '../../model/config.dart';
 import '../../model/desktop_page_response.dart';
-import '../../services/api/api.dart';
 import '../../utils/enums.dart';
 import '../../widgets/header_app_bar.dart';
 import '../base_view.dart';
