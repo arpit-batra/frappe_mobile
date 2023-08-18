@@ -16,11 +16,16 @@ class FormHelper {
     required String fieldname,
     required Object value,
   }) {
-    _formKey.currentState?.setInternalFieldValue(fieldname, value, isSetState: true);
+    _formKey.currentState?.setInternalFieldValue(
+      fieldname,
+      value,
+    );
   }
 
   removeFieldValue(String name) {
-    _formKey.currentState?.removeInternalFieldValue(name, isSetState: true);
+    _formKey.currentState?.removeInternalFieldValue(
+      name,
+    );
   }
 
   Object getValue(String fieldname) {

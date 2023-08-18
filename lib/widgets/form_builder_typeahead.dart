@@ -307,7 +307,7 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
           onSaved: onSaved,
           enabled: enabled,
           onReset: onReset,
-          decoration: decoration,
+          // decoration: decoration,
           focusNode: focusNode,
           builder: (FormFieldState<T> field) {
             final state = field as _FormBuilderTypeAheadState<T>;
@@ -323,7 +323,7 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
                         color: theme.disabledColor,
                       ),
                 focusNode: state.effectiveFocusNode,
-                decoration: state.decoration,
+                // decoration: state.decoration,
               ),
               // HACK to satisfy strictness
               suggestionsCallback: suggestionsCallback,

@@ -85,25 +85,25 @@ Widget makeControl({
       }
       break;
 
-    case "MultiSelect":
-      {
-        control = MultiSelect(
-          doctypeField: field,
-          doc: doc,
-          onControlChanged: onControlChanged,
-        );
-      }
-      break;
+    // case "MultiSelect":
+    //   {
+    //     control = MultiSelect(
+    //       doctypeField: field,
+    //       doc: doc,
+    //       onControlChanged: onControlChanged,
+    //     );
+    //   }
+    //   break;
 
-    case "Table MultiSelect":
-      {
-        control = MultiSelect(
-          doctypeField: field,
-          doc: doc,
-          onControlChanged: onControlChanged,
-        );
-      }
-      break;
+    // case "Table MultiSelect":
+    //   {
+    //     control = MultiSelect(
+    //       doctypeField: field,
+    //       doc: doc,
+    //       onControlChanged: onControlChanged,
+    //     );
+    //   }
+    //   break;
 
     case "Small Text":
       {
@@ -446,7 +446,7 @@ List<Widget> generateLayout({
         }
 
         if (field.collapsible == 1) {
-          var cLabel = "${field.label??""}@@$fieldVisibility";
+          var cLabel = "${field.label ?? ""}@@$fieldVisibility";
           isSection = false;
           isCollapsible = true;
           collapsibleLabels.add(cLabel);

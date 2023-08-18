@@ -60,10 +60,11 @@ class Select extends StatelessWidget with Control, ControlInput {
         FrappeIcons.select,
       ),
       initialValue: doc != null
-          ? doc![doctypeField.fieldname] != "" ? doc![doctypeField.fieldname] : null
+          ? doc![doctypeField.fieldname] != ""
+              ? doc![doctypeField.fieldname]
+              : null
           : doctypeField.defaultValue,
       name: doctypeField.fieldname,
-      hint: Text(doctypeField.label!),
       decoration: Palette.formFieldDecoration(
         label: doctypeField.label,
       ),
