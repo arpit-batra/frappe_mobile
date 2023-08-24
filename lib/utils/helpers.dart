@@ -19,7 +19,6 @@ import '../model/config.dart';
 import '../model/doctype_response.dart';
 
 import '../services/api/api.dart';
-import '../views/no_internet.dart';
 
 import 'http.dart';
 import '../app/locator.dart';
@@ -186,8 +185,6 @@ handleError({
 }) {
   if (error.statusCode == HttpStatus.forbidden) {
     handle403(context);
-  } else if (error.statusCode == HttpStatus.serviceUnavailable) {
-    return NoInternet(hideAppBar);
   } else {
     return Scaffold(
       body: Center(
